@@ -2,10 +2,10 @@ var admin = require('../controller/admin')
 var express = require('express')
 var router = express.Router();
 
-router.use((req, res, next) => {
-    console.log('admin/login ROUTER middleware');
-    next();
-})
+// router.use((req, res, next) => {
+//     console.log('admin/login ROUTER middleware');
+//     next();
+// })
 
 router.post('/login', admin.login)
 

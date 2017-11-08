@@ -5,4 +5,7 @@ module.exports = app => {
   // home
   app.use('/home', require('./home'));
 
+  // common
+  app.use('/common', require('./common'))
+
 }
