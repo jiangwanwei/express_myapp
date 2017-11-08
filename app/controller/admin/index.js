@@ -5,7 +5,7 @@ var dir = path.join(__dirname)
 
 var controller = {},
     eachHandle = file => {
-        let name = file.split('.')[0];
+        let name = file.replace(/\.js$/, '');
         controller[name] = require(`./${name}`)
     };
 

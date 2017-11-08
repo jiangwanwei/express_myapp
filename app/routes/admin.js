@@ -15,4 +15,6 @@ router.route('/product')
       .put(admin.product_update)
       .delete(admin.product_delete)
 
+
+
 module.exports = router
