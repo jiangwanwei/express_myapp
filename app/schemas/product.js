@@ -34,7 +34,8 @@ var ProductSchema = new mongoose.Schema({
     }
 })
 
-ProductSchema.pre('save', next => {
+ProductSchema.pre('save', function(next) {
+    console.log(this, 2)
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now();
     } else {
