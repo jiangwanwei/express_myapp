@@ -1,7 +1,4 @@
-var mongoose = require('mongoose');
 var Product = require('../../modules/product');
-
-mongoose.connect('mongodb://localhost:27017/myapp', {useMongoClient: true});
 
 
 module.exports = (req, res) => {

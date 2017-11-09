@@ -49,12 +49,12 @@ ProductSchema.statics = {
         return this
             .find({})
             .sort('meta.updateAt')
-            exec(cb)
+            .exec(cb)
     },
     findById(_id, cb) {
         return this
             .findOne({_id})
-            exec(cb)
+            .exec(cb)
     }
 }
 
