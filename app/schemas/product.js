@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var ProductSchema = new mongoose.Schema({
+var ProductSchema = new Schema({
     name: String,
     cover: String,
     describe: String,
@@ -35,13 +36,12 @@ var ProductSchema = new mongoose.Schema({
 })
 
 ProductSchema.pre('save', function(next) {
-    console.log(this, 2)
+    console.log('this.isNew', this.isNew)
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now();
     } else {
         this.meta.updateAt = Date.now();
     }
-
     next();
 })
 
