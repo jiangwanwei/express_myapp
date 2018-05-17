@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+    },
     cover: String,
     describe: String,
     introduction: String,
@@ -22,7 +25,11 @@ var ProductSchema = new Schema({
         type: Number,
         default: 1,
     },
-    sort: Number,
+    sort: {
+        type:Number,
+        min:0,       //年龄最小18
+        max:120     //年龄最大120
+    },
     meta: {
         createAt: {
             type: Date,
@@ -33,10 +40,13 @@ var ProductSchema = new Schema({
             default: Date.now(),
         }
     }
+}, {
+    collection: 'myProduct',   // 自定义collection名称
+    // id: false,
+    // _id: false,
 })
 
 ProductSchema.pre('save', function(next) {
-    console.log('this.isNew', this.isNew)
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now();
     } else {
@@ -47,8 +57,7 @@ ProductSchema.pre('save', function(next) {
 
 ProductSchema.statics = {
     fetch(cb) {
-        return this
-            .find({})
+        this.find({})
             .sort('meta.updateAt')
             .exec(cb)
     },

@@ -1,15 +1,15 @@
-var fs = require('fs')
-var path = require('path')
+// var fs = require('fs')
+// var path = require('path')
 
-var dir = path.join(__dirname)
+// var dir = path.join(__dirname)
 
-var controller = {},
-    eachHandle = file => {
-        let name = file.replace(/\.js$/, '');
-        controller[name] = require(`./${name}`)
-    };
+// var controller = {},
+//     eachHandle = file => {
+//         let name = file.replace(/\.js$/, '');
+//         controller[name] = require(`./${name}.js`);
+//     };
 
-fs.readdirSync(dir)
-  .forEach(eachHandle)
+// fs.readdirSync(dir)
+//   .map(eachHandle)
 
-module.exports = controller
+// module.exports = controller

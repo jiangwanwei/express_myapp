@@ -1,11 +1,10 @@
 module.exports = app => {
-  // admin
-  app.use('/admin', require('./admin'));
-
-  // home
-  app.use('/home', require('./home'));
-
-  // common
-  app.use('/common', require('./common'))
-
+  app.get('/', (req, res) => {
+    res.send('welcome.');
+  })
+  app.use('/signup', require('./signup'))
+  app.use('/signin', require('./signin'))
+  app.use('/signout', require('./signout'))
+  app.use('/posts', require('./posts'))
+  app.use('/comments', require('./comments'))
 }
