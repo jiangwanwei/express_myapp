@@ -8,7 +8,7 @@ include ./header.jade
             data-content='#{user.bio}')
             img.avatar(src='/img/#{user.avatar}')
     .eight.wide.column
-        form.ui.form.segment(method='post')
+        form.ui.form.segment(method='post', enctype="multipart/form-data")
             .field.required
                 label 标题
                 input(type='text' name='title')

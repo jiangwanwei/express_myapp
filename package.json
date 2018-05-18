@@ -20,6 +20,7 @@
     "immutable": "^3.8.2",
     "jade": "~1.11.0",
     "lodash": "^4.17.4",
+    "marked": "^0.3.19",
     "moment": "^2.22.1",
     "mongolass": "^4.2.0",
     "mongoose": "^4.13.0",
