@@ -4,7 +4,7 @@ const {checkLogin} = require('../middlewares/auth')
 // GET /posts 所有用户或者特定用户的文章页
 //   eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {
-    res.send('主页')
+    res.render('posts')
   })
   
   // POST /posts/create 发表一篇文章
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   
   // GET /posts/create 发表文章页
   router.get('/create', checkLogin, function (req, res, next) {
-    res.send('发表文章页')
+    res.render('create')
   })
   
   // GET /posts/:postId 单独一篇的文章页

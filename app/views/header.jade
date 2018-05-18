@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title #{blog.title}
+        link(rel="stylesheet", href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css")
+        link(rel="stylesheet", href="/stylesheets/style.css")
+        script(src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js")
+        script(src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js")
+    body
+        include ./components/nav.jade
+        include ./components/nav-setting.jade
+        include ./components/notification.jade
+        
+        
