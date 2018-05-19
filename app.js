@@ -1,19 +1,22 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var flash = require('connect-flash');
-var config = require('../app/config');
-var pkg = require('../package.json');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
+const config = require('./config');
+const pkg = require('./package.json');
+// 日志
+const winston = require('winston')
+const expressWinston = require('express-winston')
 
 
-var app = express();
+const app = express();
 
-var router = require('./routes/');
+const router = require('./routes/');
 // require('./config/db')();   // mongoose 链接数据库
 
 // view engine setup
@@ -68,7 +71,37 @@ app.use(function(req, res, next) {
   next()
 })
 
-router(app);
+// 正常请求的日志
+app.use(expressWinston.logger({
+  transports: [
+    new (winston.transports.Console)({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/success.log'
+    })
+  ]
+}))
+// 路由
+router(app)
+// 错误请求的日志
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/error.log'
+    })
+  ]
+}))
+
+app.use(function (err, req, res, next) {
+  req.flash('error', err.message)
+  res.redirect('/posts')
+})
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
