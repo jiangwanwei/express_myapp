@@ -5,5 +5,6 @@ module.exports = {
         key: 'myblog',
         maxAge: 2592000000,
     },
+    secret: 'learApi',
     mongodb: 'mongodb://jww:jww@127.0.0.1:27017/myapp',
 }

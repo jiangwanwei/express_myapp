@@ -57,6 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
-app/config/*
-!app/config/default.*
+config/*
+!config/default.*
 

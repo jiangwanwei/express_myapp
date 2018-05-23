@@ -9,6 +9,9 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const config = require('./config');
 const pkg = require('./package.json');
+
+const passport = require('passport');  // 用户认证模块passport
+
 // 日志
 const winston = require('winston')
 const expressWinston = require('express-winston')
@@ -18,6 +21,8 @@ const app = express();
 
 const router = require('./routes/');
 // require('./config/db')();   // mongoose 链接数据库
+
+app.use(passport.initialize());   // 初始化passport模块
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -72,17 +77,17 @@ app.use(function(req, res, next) {
 })
 
 // 正常请求的日志
-app.use(expressWinston.logger({
-  transports: [
-    new (winston.transports.Console)({
-      json: true,
-      colorize: true
-    }),
-    new winston.transports.File({
-      filename: 'logs/success.log'
-    })
-  ]
-}))
+// app.use(expressWinston.logger({
+//   transports: [
+//     new (winston.transports.Console)({
+//       json: true,
+//       colorize: true
+//     }),
+//     new winston.transports.File({
+//       filename: 'logs/success.log'
+//     })
+//   ]
+// }))
 // 路由
 router(app)
 // 错误请求的日志
