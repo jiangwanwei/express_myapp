@@ -74,7 +74,15 @@ router.post('/signin', (req, res) => {
 // 通过 header 发送 Authorization -> Bearer  + token
 // 或者通过 ?access_token = token
 router.get('/user', 
-    passport.authenticate('bearer', {session: false}),
+    (req, res, next) => {
+        passport.authenticate('bearer', {session: false}, (err, user, info) => {
+            if (user) return next(user)
+            res.json({
+                success: false,
+                message: 'no auth.'
+            })
+        })(req, res, next)
+    },
     (req, res) => {
         let {user} = req
         delete user.password
