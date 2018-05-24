@@ -6,8 +6,7 @@ const jwt = require('jsonwebtoken')
 const apiUserModel = require('../modules/api')
 const config = require('../config/index')
 
-const passport = require('passport')
-require('./passport')(passport)
+const authenticate = require('../middlewares/authenticate')
 
 router.get('/', (req, res) => {
     res.json({
@@ -73,25 +72,20 @@ router.post('/signin', (req, res) => {
 // passport-http-bearer token 中间件验证
 // 通过 header 发送 Authorization -> Bearer  + token
 // 或者通过 ?access_token = token
-router.get('/user', 
-    (req, res, next) => {
-        passport.authenticate('bearer', {session: false}, (err, user, info) => {
-            if (user) return next(user)
-            res.json({
-                success: false,
-                message: 'no auth.'
-            })
-        })(req, res, next)
-    },
-    (req, res) => {
-        let {user} = req
-        delete user.password
-        delete user.token
-        res.json({
-            success: true,
-            user
-        })
-    }
-)
+router.get('/user', authenticate, (req, res) => {
+    let {user} = req
+    delete user.password
+    delete user.token
+    res.json({
+        success: true,
+        user
+    })
+})
+router.get('/401', (req, res) => {
+    res.json({
+        success: false,
+        message: 'auth error.'
+    })
+})
 
 module.exports = router

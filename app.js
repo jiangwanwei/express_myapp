@@ -23,6 +23,7 @@ const router = require('./routes/');
 // require('./config/db')();   // mongoose 链接数据库
 
 app.use(passport.initialize());   // 初始化passport模块
+require('./middlewares/passport')(passport);    // 为 passport添加中间件设置 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
